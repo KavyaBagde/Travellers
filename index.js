@@ -5,7 +5,7 @@ if(process.env.NODE_ENV != "production"){
 //needed requirements
 const express = require("express");
 const app = express();
-const port = 8080;
+const port = 27017;
 const mongoose = require("mongoose");
 const path = require("path");
 const Listing = require("./models/listing.js");
@@ -74,11 +74,6 @@ main()
 async function main() {
   await mongoose.connect(db_url);
 }
-
-//root route
-// app.get("/", (req, res) => {
-//   res.send("i am root");
-// });
 
 //session + flash
 app.use(session(sessionObtions));
