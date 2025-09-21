@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router({mergeParams : true});
 const Listing = require("../models/listing.js");
+const User = require("../models/users.js");
 const Review = require("../models/reviews.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/expressError.js");
 const { reviewSchema} = require("../schema.js");
+const { use } = require("passport");
 
 const validateReview = (req , res ,next) =>{
   let {error} = reviewSchema.validate(req.body);
@@ -20,7 +22,15 @@ const validateReview = (req , res ,next) =>{
 router.post("/" , validateReview , wrapAsync(async(req , res)=>{
 
   let listing = await Listing.findById(req.params.id);
-  let newReview = new Review(req.body.review);
+  let user = await User.findById(listing.owner)
+
+  let newReview = new Review({
+    name:user.username,
+    comment : req.body.review.comment,
+    rating : req.body.review.rating
+  });
+
+
 
   listing.reviews.push(newReview);
 

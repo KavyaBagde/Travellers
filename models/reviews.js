@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const reviweSchema = new Schema({
+    name : String,
     comment : String ,
     rating : {
         type : Number,

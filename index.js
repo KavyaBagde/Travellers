@@ -5,7 +5,7 @@ if(process.env.NODE_ENV != "production"){
 //needed requirements
 const express = require("express");
 const app = express();
-const port = 27017;
+const port = 2001;
 const mongoose = require("mongoose");
 const path = require("path");
 const Listing = require("./models/listing.js");
